@@ -1,0 +1,67 @@
+Staeubli!9	
+
+https://github.com/MobileManipulation/rgbd_ros_to_lcm(how to get lcm format log file)
+
+https://github.com/ianre657/LabelFusion(an example for realsense camera)
+
+
+if the following fails with "ResourceNotFound: rgbd_launch"
+
+--roslaunch realsense2_camera rs_rgbd.launch   
+
+try :sudo apt install ros-kinetic-rgbd-launch
+
+realsense camera intrinsic parameter
+--fx = 616.0936279296875
+--fy = 616.29443359375
+--cx = 313.71466064453125
+--cy = 244.88168334960938
+
+
+use the following command line to start realsense camera 
+--roslaunch realsense2_camera rs_camera.launch align_depth:=true filters:=pointcloud   --->1
+
+use the following command line to republush in lcm format(ignore error message: Depth image format is 16UC1
+--roslaunch rgbd_ros_to_lcm lcm_republisher.launch     --->2
+
+in data/logs/testlog run:
+--lcm-logger
+select start and end timestamp to trim the log file, then run 
+--run_prep
+3d reconstruction step
+
+ 
+--run_alignment_tool
+
+----gr.rotateReconstructionToStandardOrientation()
+
+----gr.segmentTable()
+----gr.saveAboveTablePolyData()
+
+----objectName = "metal"
+----gr.launchObjectAlignment(objectName)
+
+
+
+change the launch file of rgbd_ros_to_lcm(/home/fapsros/ur5_ws/src/rgbd_ros_to_lcm/launch) to be following:
+--rgb_topic: /camera/color/image_raw
+--depth_topic: /camera/aligned_depth_to_color/image_raw
+--cloud_topic: /camera/depth/color/points
+
+
+when run "run_prep" ->error: GLSL 3.30 is not supported. Supported versions are: 1.10, 1.20, 1.30, 1.00 ES, and 3.00 ES
+ElasticFusion
+
+https://www.linuxbabe.com/desktop-linux/switch-intel-nvidia-graphics-card-ubuntu
+
+131.188.112.116(recht)
+131.188.112.161(Training)
+131.188.112.95(link)
+
+no module named 'em' :https://answers.ros.org/question/257331/python-module-empy-missing-tutorials/
+
+
+
+
+sudo nvidia-uninstall
+

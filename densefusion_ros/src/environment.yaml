@@ -1,0 +1,11 @@
+name: inference
+dependencies:
+- python
+- pytorch=0.4.1
+- matplotlib
+- scipy
+- numpy
+- pyyaml
+- cudatoolkit=9.0
+- pillow
+

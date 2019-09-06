@@ -1,0 +1,9 @@
+*.png
+*.stl
+*.ply
+*.pth
+*.so
+*.pyc
+experiments/eval_result/
+experiments/logs/
+seg/logs/
