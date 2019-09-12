@@ -1,7 +1,6 @@
 import torch
 import numpy as np
 from PIL import Image
-import numpy.ma as ma
 import torch.utils.data as data
 import copy
 from torchvision import transforms
@@ -12,7 +11,6 @@ import scipy.misc
 import os
 from PIL import ImageEnhance
 from PIL import ImageFilter
-import torchvision.transforms as transforms
 
 class SegDataset(data.Dataset):
     def __init__(self, root_dir, txtlist, use_noise, length):

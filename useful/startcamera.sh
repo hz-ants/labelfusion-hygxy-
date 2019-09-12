@@ -1,0 +1,1 @@
+roslaunch realsense2_camera rs_camera.launch align_depth:=true filters:=pointcloud enable_infra2:=false enable_infra1:=false enable_fisheye:=false enable_fisheye1:=false enable_fisheye2:=false enable_gyro:=false enable_accel:=false enable_pose:=false

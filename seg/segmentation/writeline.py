@@ -17,10 +17,10 @@ random.shuffle(lines)
 trainlines = []
 testlines = []
 
-for i in range(len(lines)-900, len(lines)):
+for i in range(0, 900):
     trainlines.append(lines[i])
 
-for j in range(len(lines)-900):
+for j in range(900,len(lines)):
     testlines.append(lines[j])
 
 '''

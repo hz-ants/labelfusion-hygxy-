@@ -1,6 +1,5 @@
 *.png
 *.stl
-*.ply
 *.pth
 *.so
 *.pyc
