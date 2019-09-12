@@ -101,10 +101,10 @@ rosrun rospy densefusion_ros densefusion_ros --model=flansch
 the option "--model" allows you to specify which object you are woking with, change "--model=flansch" to "--model=schaltgabel" or "--model=stift" if you want to detect other objects.
 ## Some Demo Pictures
 <p align="center">
-	<img src ="3dbbox_stift.png" width="600" />
+	<img src ="./3dbbox_stift" width="600" />
 </p>
 <p align="center">
-	<img src ="3dbbox_flansch.png" width="600" />
+	<img src ="./3dbbox_flansch" width="600" />
 </p>
 
 
