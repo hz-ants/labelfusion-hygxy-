@@ -68,9 +68,17 @@ def setCameraInstrinsicsAsus(view):
 ```python
 os.system(path_to_ElasticFusion_executable + " -l ./" + lcmlog_filename+ " -cal ./camera.cfg")
 ```
-and then create a camera.cfg file in your lcm-log folder with the camera instrinsic infomation ```fx fy cx cy``` in just one line.
+3.Create a camera.cfg file in your lcm-log folder with the camera instrinsic infomation ```fx fy cx cy``` in just one line.
 
-The rest is the same as documented in LabelFusion's original pipeline. The point cloud of .ply format can be obtained by using [this](https://svncvpr.in.tum.de/cvpr-ros-pkg/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_pointcloud.py) python script.
+The rest is the same as documented in LabelFusion's original pipeline. The point cloud of .ply format can be obtained by using [this](https://svncvpr.in.tum.de/cvpr-ros-pkg/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_pointcloud.py) python script. If you need a .pcd format point cloud absolutely,try the "pcl_converter" tool after installing the [PCL](http://pointclouds.org/) library, the syntax is as follows:
+```bash
+pcl_converter -f ascii 0000.ply 0000.pcd
+```
+You may encounter a "Cannot read geometry" error, this is due to the fact that the .ply file does not declare any information about faces(just vertices).A workaround is to add the following two lines after the line "property uchar alpha" in the header part of the .ply file.
+```
+element face 0
+property list uchar int vertex_indices
+```
 
 ## Training
 In the /ma_densefusion folder, run:
@@ -100,12 +108,8 @@ rosrun rospy densefusion_ros densefusion_ros --model=flansch
 ```
 the option "--model" allows you to specify which object you are woking with, change "--model=flansch" to "--model=schaltgabel" or "--model=stift" if you want to detect other objects.
 ## Some Demo Pictures
-<p align="center">
-	<img src ="./3dbbox_stift" width="600" />
-</p>
-<p align="center">
-	<img src ="./3dbbox_flansch" width="600" />
-</p>
+![Result for follower](./3dbbox_flansch)
+![Result for shifting rod](./3dbbox_stift)
 
 
 
