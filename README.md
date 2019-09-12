@@ -2,7 +2,7 @@
 This repository contains Mr. Yue Huang's work in scope of his master thesis, during which he implemented an object segmentation and 6d-pose estimation system for industrial metallic parts targeting at robotics Bin-Picking tasks based on the [DenseFusion](https://arxiv.org/abs/1901.04780) paper.
 
 ## ma_densefusion overview
-The ma_densefusion system is capable of segmenting a texturelose part from it's background(usually a blue box) and generating a mask, the mask is then feed into a iterative pose estimation network adapted from the original [implementation](https://github.com/j96w/DenseFusion). The two separate pipelines(i.e., segmentation and pose estimation) can be combined together and run in real time with an inference time of around 0.08s, both for single and mutiple objects scenario. In case of multiple objects scenario, the mask with the maximal area is simply chosen as the final mask to be feed into the pose estimation network.
+The ma_densefusion system is capable of segmenting a texturelose part from it's background(usually a blue box) and generating a mask, the mask is then feed into an iterative pose estimation network adapted from the original [implementation](https://github.com/j96w/DenseFusion). The two separate pipelines(i.e., segmentation and pose estimation) can be combined together and run in real time with an inference time of around 0.08s, both for single and mutiple objects scenario. In case of multiple objects scenario, the mask with the maximal area is simply chosen as the final mask to be feed into the pose estimation network. As the roboter arm grips one part at once for Bin-Picking applications, the "maximal area" strategy should be enough.
 
 ## Directory structure
 * **datasets**
@@ -35,5 +35,30 @@ The ma_densefusion system is capable of segmenting a texturelose part from it's 
 * **Paper.pdf**: An example paper from previous work
 
 ## Datasets Downloading
-The Datasets used in this project can be downloaded from [here](https://drive.google.com/open?id=1ENjBtkHoDXCFoMJb5xYoAbEeMZF_QqaO), move the files to the [data](#data) folder and you can start to train, note you may need to delete the original folders(i.e., 01,02,03), they are actually the same as the downloaded datasets.
+The Datasets used in this project can be downloaded from [here](https://drive.google.com/open?id=1k8muuXmz4wddMxDQou6hEJGaLqHojiNU). After downloading, move the folders named 01,02,03 to the [data](#data) folder and the .ply files to the [models](#models) folder, then you can start to train. Note that you may need to delete the original picture folders(i.e., 01,02,03), they are actually the same as their counterparts in the downloaded datasets.
+
+## Training
+In the /ma_densefusion folder, run:
+```
+./experiments/scripts/train_poseownnet.sh
+```
+## Evaluation
+In the /ma_densefusion folder, run:
+```
+./experiments/scripts/eval_poseownnet.sh
+```
+## Training of Semantic Segmentation Network
+In the /ma_densefusion/seg/ folder, run:
+```
+python3 train.py
+```
+## Getting Segmentation Results
+In the /ma_densefusion/seg/ folder, run:
+```
+python3 segeval.py
+```
+Note that you may need to adjust some lines of code to get segmentation results for just one picture or the whole datasets according to your need, see comments in the for detail.
+
+
+
 
