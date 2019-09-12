@@ -24,18 +24,31 @@ The ma_densefusion system is capable of segmenting a texturelose part from it's 
     * **lib/pspnet.py**: Decoder network architecture.
     * **lib/utils.py**: Logger code.
     * **lib/knn/**: CUDA K-nearest neighbours library adapted from [pytorch_knn_cuda](https://github.com/chrischoy/pytorch_knn_cuda).
++ **man_stl**: CAD models in .stl format
 * **seg**:original and pruned version of semantic segmentation network
     * **segmentation**: datastes for segmentation and train/test indices
-    * **writeline.py**: scripts for creating train/test index files
+        * **writeline.py**: scripts for creating train/test index files
+        * **mask**: mask daatstes for semantic segmentation
+        * **rgb**:  rgb datasets for semantic segmentation
+        * **seg_result** :semantic segmentation results generated with "/seg/segeval.py"
+        * **txt_files**:train and test indicies files
+    * **segeval.py**: evalution scripts for generating segmentation results
+    * **segnet.py**:original semantic segmentation network from DenseFusion
+    * **loss.py**:Cross Entropy loss used for semantic segmentation network
+    * **train.py**: Training scripts for semantic segmentation network
+    * **data_controller.py**: Dataloder for semantic segmentation datasets
+
 * **tools**
 	* **tools/_init_paths.py**: Add local path.
+    * **tools/eval_adi.py**: scripts for evaluating on adi,vsd metrics, still needs to be modified
 	* **tools/eval_poseownnet.py**: Evaluation code for own posent dataset.
 	* **tools/train.py**: Training code for own posenet dataset.
-* **useful**:some useful scripts that save you a lot of dirty work like starting docker and camera, converting datasets from LabelFusion format to our format.
+* **trained_models**: pre-trained models,which includes a pose estimation network and a refiner network model
+* **useful**:some useful scripts that save you a lot of dirty work like starting docker and camera, converting datasets from LabelFusion format to our format, etc.
 * **Paper.pdf**: An example paper from previous work
 
 ## Datasets Downloading
-The Datasets used in this project can be downloaded from [here](https://drive.google.com/open?id=1k8muuXmz4wddMxDQou6hEJGaLqHojiNU). After downloading, move the folders named 01,02,03 to the [data](#data) folder and the .ply files to the [models](#models) folder, then you can start to train. Note that you may need to delete the original picture folders(i.e., 01,02,03), they are actually the same as their counterparts in the downloaded datasets.
+The Datasets used in this project can be downloaded from [here](https://drive.google.com/open?id=1k8muuXmz4wddMxDQou6hEJGaLqHojiNU). After downloading, move the folders named 01,02,03 to the datasets/data folder and the .ply files to the datasets/models folder, then you can start to train or evaluate. Note that you may need to delete the original subfolders in datasets/data folders(i.e., 01,02,03), they are actually the same as their counterparts in the downloaded datasets.
 
 ## Training
 In the /ma_densefusion folder, run:
