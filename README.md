@@ -57,7 +57,7 @@ In the /ma_densefusion/seg/ folder, run:
 ```
 python3 segeval.py
 ```
-Note that you may need to adjust some lines of code to get segmentation results for just one picture or the whole datasets according to your need, see comments in the for detail.
+Note that you may need to adjust some lines of code to get segmentation results for just one picture or the whole datasets according to your need, see comments in the python script for detail.
 
 
 
