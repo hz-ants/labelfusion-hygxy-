@@ -7,15 +7,30 @@ The ma_densefusion system is capable of segmenting a texturelose part from it's 
 ## Directory Structure
 * **datasets**
     * **data**
-        * **01** rgb,mask,depth,train/test indices and ground truth poses for follower(object id:0)
-        * **02** rgb,mask,depth,train/test indices and ground truth poses for shifting fork(object id:1)
-        * **03** rgb,mask,depth,train/test indices and ground truth poses for shifting rod(object id:2)
+        * **01** rgb,mask,depth,ply,pcd,train/test indices and ground truth poses for follower(object id:0)
+        * **02** rgb,mask,depth,ply,pcd,train/test indices and ground truth poses for shifting fork(object id:1)
+        * **03** rgb,mask,depth,ply,pcd,train/test indices and ground truth poses for shifting rod(object id:2)
     * **models**: CAD models of the objects in our experiments
     * **dataset.py**: Dataset loader for all three objects
     * **plygenerator.py**: Python script for generating point cloud in .ply format using a pair of aligned depth and color png files, taken from [here](https://svncvpr.in.tum.de/cvpr-ros-pkg/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_pointcloud.py)
+    * **plybatchgenerator.py**: Python script for generating point cloud in .ply format for all pairs of depth and rgb png files in a folder
+    * **ply2pcd.sh**:Bash script for converting all .ply files to .pcd files, this requires installation of the [PCL](http://pointclouds.org/) library
 * **densefusion_ros**: single-node ros package that subscribes depth and rgb topics for segmentation and pose estimation utilizing the pre-trained models
+  * **src**
+    * **densefusion_ros.py**:ros node for segmentation and pose estimation in real time
+    * **segnet.py**:pruned version of semantic segmentation network(Encoder-Decoder)
+    * **segnet_original.py**:original version of semantic segmentation network(Encoder-Decoder)
+
+
 * **experiments**:useful scripts for model training and evalution
 * **generategtfromposedata**: scripts for generating ground truth poses from datatset for evalution using vsd, adi, recall rate metrics
+    * **pred_1.txt**:model predicted poses for follower using mask ouputed by original version of semantic segmenation network
+    * **pred_2.txt**:model predicted poses for shifting fork using mask ouputed by original version of semantic segmenation network
+    * **pred_3.txt**:model predicted poses for shifting rod using mask ouputed by original version of semantic segmenation network
+    * **generategt.py**:Python script for generating ground truth poses in the format that our evaluation pipeline accepts from original datasets
+    * **posedata_1.yml**:original ground truth pose data for follower, same as /data/01/posedata.yml
+    * **posedata_3.yml**:original ground truth pose data for shifting rod, same as /data/03/posedata.yml
+
 * **lib**:
     * **lib/loss.py**: Loss calculation for DenseFusion model.
 	* **lib/loss_refiner.py**: Loss calculation for iterative refinement model.
@@ -70,7 +85,7 @@ os.system(path_to_ElasticFusion_executable + " -l ./" + lcmlog_filename+ " -cal 
 ```
 3.Create a camera.cfg file in your lcm-log folder with the camera instrinsic infomation ```fx fy cx cy``` in just one line.
 
-The rest is the same as documented in LabelFusion's original pipeline. The point cloud of .ply format can be obtained by using [this](https://svncvpr.in.tum.de/cvpr-ros-pkg/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_pointcloud.py) python script. If you need a .pcd format point cloud absolutely,try the "pcl_converter" tool after installing the [PCL](http://pointclouds.org/) library, the syntax is as follows:
+The rest is the same as what is documented in LabelFusion's original pipeline. The point cloud of .ply format can be obtained by using [this](https://svncvpr.in.tum.de/cvpr-ros-pkg/trunk/rgbd_benchmark/rgbd_benchmark_tools/src/rgbd_benchmark_tools/generate_pointcloud.py) python script. If you need a .pcd format point cloud absolutely,try the "pcl_converter" tool after installing the [PCL](http://pointclouds.org/) library, the syntax is as follows:
 ```bash
 pcl_converter -f ascii 0000.ply 0000.pcd
 ```
@@ -102,9 +117,9 @@ python3 segeval.py
 ```
 Note that you may need to adjust some lines of code to get segmentation results for just one picture or the whole datasets according to your need, see comments in the python script for detail.
 ## Starting ROS Node
-Copy the /densefusion_ros folder to your ROS catkin_ws/src, soure your catkin_ws/devel/setup.bash file and then run:
+Copy the /densefusion_ros folder to your ROS catkin_ws/src, soure your catkin_ws/devel/setup.bash file,change directory to catkin_ws/src/densefusion_ros/src, and then run:
 ```
-rosrun rospy densefusion_ros densefusion_ros --model=flansch
+rosrun densefusion_ros densefusion_ros.py --model=flansch
 ```
 the option "--model" allows you to specify which object you are woking with, change "--model=flansch" to "--model=schaltgabel" or "--model=stift" if you want to detect other objects.
 ## Some Demo Pictures

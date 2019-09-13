@@ -234,7 +234,7 @@ class PoseDataset(data.Dataset):
         cloud = np.add(cloud, -1.0 * target_t) / 1000.0
         cloud = np.add(cloud, target_t / 1000.0)
 
-        #cloud每个值除以1000
+        #divide every point by factor 1000
 
         #print('final cloud is of shape : {0}'.format(cloud.shape))          #(500, 3)
 
