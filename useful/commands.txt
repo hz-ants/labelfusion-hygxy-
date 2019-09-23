@@ -54,7 +54,7 @@ ElasticFusion
 
 https://www.linuxbabe.com/desktop-linux/switch-intel-nvidia-graphics-card-ubuntu
 
-131.188.112.116(recht)
+131.188.112.166(recht)
 131.188.112.161(Training)
 131.188.112.95(link)
 

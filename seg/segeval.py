@@ -31,7 +31,7 @@ rgb = Variable(rgb).cuda()
 semantic = model(rgb.unsqueeze(0))
 _, pred_original = torch.max(semantic, dim=1)
 pred = pred_original*255
-img = np.transpose(pred.unsqueeze(0).cpu().numpy(), (1, 2, 0))
+#img = np.transpose(pred.unsqueeze(0).cpu().numpy(), (1, 2, 0))
 #ret, threshold = cv2.threshold(img, 1, 255, cv2.THRESH_BINARY)
 torchvision.utils.save_image(pred, './3000.png')
 #print(semantic)

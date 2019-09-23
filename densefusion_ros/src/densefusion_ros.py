@@ -284,12 +284,14 @@ def main(args):
     #seg_model.load_state_dict(torch.load('./flansch_pruned.pth'))
 
     if opt.model =='flansch':
-        seg_model.load_state_dict(torch.load('./flansch_pruned.pth'))
+        seg_model.load_state_dict(torch.load('./segflansch.pth'))
+        #seg_model.load_state_dict(torch.load('./flansch_pruned.pth'))
         idx =0
         scaled  = np.array([[59, -42, 59], [59,-42, -59], [59, 20, -59], [59,20,59],
                            [-59, -42, 59], [-59,-42, -59],[-59, 20, -59],[-59,20,59]])/1000                               #flansch_3d_bbox
     elif opt.model == 'schaltgabel':
-        seg_model.load_state_dict(torch.load('./schaltgabel_pruned.pth'))
+        seg_model.load_state_dict(torch.load('./segschaltgabel.pth'))
+        #seg_model.load_state_dict(torch.load('./schaltgabel_pruned.pth'))
         idx = 1 
         scaled = np.array([[-54.7478, -16.7500, 23], [-54.7478,-16.7500,0],[54.7478,-16.7500,0],[54.7478,-16.7500,23],
                            [-54.7478, 130.85, 23], [-54.7478,130.85,0],[54.7478,130.85,0],[54.7478,130.85,23]]) /1000     #schaltgabel_3d_bbox 

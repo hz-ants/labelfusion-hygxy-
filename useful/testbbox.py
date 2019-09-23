@@ -3,7 +3,7 @@ import sys
 sys.path.insert(0,'/home/fapsros/anaconda3/lib/python3.7/site-packages') 
 import cv2
 
-img = cv2.imread('/home/fapsros/Desktop/posedataset/dataset/stift/rgb/0000.png',1)
+img = cv2.imread('/home/fapsros/Desktop/posedataset/dataset/stift/rgb/0000.png',1) # modify the path of images when necessary
 
 
 bbox = [186, 197, 123, 77]

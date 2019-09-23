@@ -15,7 +15,7 @@ from PIL import Image
 interval = 31 # 40, 17, 31
 
 
-'''
+
 color_label_directory = 'colorlabel'
 parent_dir = './images'
 path = os.path.join(parent_dir, color_label_directory)
@@ -25,7 +25,7 @@ files = [file for file in glob.glob('./images/*_color_labels.png')]
 
 for f in files:
         shutil.move(f,path)
-'''
+
 
 Label_Images = [cv2.imread(file,1) for file in sorted(glob.glob('./images/*_labels.png'))]        # 1->linemod, 0->ycb for segmentation
 Color_Images = [cv2.imread(file,1) for file in sorted(glob.glob('./images/*_rgb.png'))]          # order is not guranteed with glob.glob() only
